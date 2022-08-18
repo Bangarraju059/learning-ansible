@@ -1,59 +1,70 @@
-- name: Demo on play vars
+#- name: Demo on play vars
+#  hosts: all
+#  vars:
+#    URL: play.example.com
+#  tasks:
+#    - name: print URL
+#      ansible.builtin.debug:
+#        msg: URL == {{ URL }}
+#
+### In ansible we access variables within two flower brackets. {{URL}} , {{ URL }}
+#
+## play variable - Declare on play, means all tasks can access that variable
+## Note: Variables of one play cannot be accessed by another play (By default)
+#
+#- name: Demo on play var files
+#  hosts: all
+#  vars_files: demo-vars.yml
+#  tasks:
+#    - name: print URL
+#      ansible.builtin.debug:
+#        msg: URL1 == {{ URL1 }}
+#
+### task level variables are limited to that particular task only
+#- name: Demo on task level variables
+#  hosts: all
+#  tasks:
+#    - name: print URL
+#      ansible.builtin.debug:
+#        msg: URL2 = {{ URL2 }}
+#      vars:
+#        URL2: task.example.com
+#
+#
+#- name: Read the variables from inventory file
+#  hosts: all
+#  tasks:
+#    - name: print URL
+#      ansible.builtin.debug:
+#        msg: URL3 == {{ URL3 }}
+#
+### ansible-playbook -i inv -u centos -k -2-vars.yml -e URL4=cli.example.com
+#- name: variables from CLI
+#  hosts: all
+#  tasks:
+#    - name: print URL
+#      ansible.builtin.debug:
+#        msg: URL4 == {{ URL4 }}
+#
+#- name: variables from roles
+#  hosts: all
+#  roles:
+#    - sample
+#
+#- name: fact variables
+#  hosts: all
+#  tasks:
+#    - name: print host
+#      ansible.builtin.debug:
+#        msg: HostName == {{ ansible_hostname }}
+
+- name: Demo on register
   hosts: all
-  vars:
-    URL: play.example.com
   tasks:
-    - name: print URL
+    - name: Get update
+      ansible.builtin.shell: uptime
+      register: SHELL_OUTPUT
+
+    - name: print Output
       ansible.builtin.debug:
-        msg: URL == {{ URL }}
-
-## In ansible we access variables within two flower brackets. {{URL}} , {{ URL }}
-
-# play variable - Declare on play, means all tasks can access that variable
-# Note: Variables of one play cannot be accessed by another play (By default)
-
-- name: Demo on play var files
-  hosts: all
-  vars_files: demo-vars.yml
-  tasks:
-    - name: print URL
-      ansible.builtin.debug:
-        msg: URL1 == {{ URL1 }}
-
-## task level variables are limited to that particular task only
-- name: Demo on task level variables
-  hosts: all
-  tasks:
-    - name: print URL
-      ansible.builtin.debug:
-        msg: URL2 = {{ URL2 }}
-      vars:
-        URL2: task.example.com
-
-
-- name: Read the variables from inventory file
-  hosts: all
-  tasks:
-    - name: print URL
-      ansible.builtin.debug:
-        msg: URL3 == {{ URL3 }}
-
-## ansible-playbook -i inv -u centos -k -2-vars.yml -e URL4=cli.example.com
-- name: variables from CLI
-  hosts: all
-  tasks:
-    - name: print URL
-      ansible.builtin.debug:
-        msg: URL == {{ URL }}
-
-- name: variables from roles
-  hosts: all
-  roles:
-    - sample
-
-- name: fact variables
-  hosts: all
-  tasks:
-    - name: print host
-      ansible.builtin.debug:
-        msg: HostName == {{ ansible_hostname }}
+        msg: "{{SHELL_OUTPUT}}"
