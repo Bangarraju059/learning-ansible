@@ -1,0 +1,7 @@
+- name: Demo my first palybook
+  hosts: all
+  tasks:
+    - name: Print Hello
+      ansible.builtin.debug:
+        msg: Hello, how are you
+
