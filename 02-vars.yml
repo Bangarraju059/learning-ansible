@@ -1,0 +1,14 @@
+- name: Demo on play vars
+  hosts: all
+  vars:
+    URL: play.example.com
+  tasks:
+    - name: print URL
+      ansible.builtin.debug:
+        msg: URL == {{ URL }}
+
+## In ansible we access variables within two flower brackets. {{URL}} , {{ URL }}
+
+# play variable - Declare on play, means all tasks can access that variable
+# Note: Variables of one play cannot be accessed by another play (By default)
+
