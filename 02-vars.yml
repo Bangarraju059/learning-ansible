@@ -50,3 +50,10 @@
   hosts: all
   roles:
     - sample
+
+- name: fact variables
+  hosts: all
+  tasks:
+    - name: print host
+      ansible.builtin.debug:
+        msg: HostName == {{ ansible_hostname }}
