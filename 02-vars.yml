@@ -26,7 +26,7 @@
   tasks:
     - name: print URL
       ansible.builtin.debug:
-        msg: URL2 = {{URL2}}
+        msg: URL2 = {{ URL2 }}
       vars:
         URL2: task.example.com
 ## task level variables are limited to that particular task only
