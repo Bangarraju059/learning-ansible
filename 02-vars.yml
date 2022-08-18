@@ -32,7 +32,7 @@
 ## task level variables are limited to that particular task only
 
 - name: Read the variables from inventory file
-  hots: all
+  hosts: all
   tasks:
     - name: print URL
       ansible.builtin.debug:
