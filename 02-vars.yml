@@ -46,3 +46,6 @@
       ansible.builtin.debug:
         msg: URL4 == {{ URL4 }}
 
+- name: variables from roles
+  hosts: all
+  roles: sample
