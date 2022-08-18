@@ -18,4 +18,15 @@
   tasks:
     - name: print URL
       ansible.builtin.debug:
-        msg: URL == {{ URL1 }}
+        msg: URL1 == {{ URL1 }}
+
+
+- name: Demo on task level variables
+  hosts: all
+  tasks:
+    -name: print URL
+    ansible.builtin.debug:
+      msg: URL = {{URL2}}
+    vars:
+      URL: task.example.com
+## task level variables are limited to that particular task only
