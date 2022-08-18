@@ -9,4 +9,4 @@
     - name: Print if x is greater than 5
       ansible.builtin.debug:
         msg: x is greater than 5
-        when: x | int > 5
+      when: x | int > 5
